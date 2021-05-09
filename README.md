@@ -14,10 +14,36 @@ For example:
 * NPM (Node Package Manager) v6.14.10+ [Install](https://nodejs.org/en/)
 * NodeJS (Node JS) v14.15.4+ [Install](https://www.npmjs.com/get-npm)
 * React.js (Used in backend) [Use]()
+* MongoDB/MongoDB Atlas [Use]()
 
 ## Options
 * React.js | For use in frontend. [Install]()
 * Vue.js | For use in frontend. [Install]()
+
+## Setup & Installation
+To run this package, you must run these simple Git commands in your root project directory:
+```
+$ git clone https://github.com/spencerkphillips/Streambase.git
+$ cd Streambase
+$ npm install
+```
+
+Now you have the project and its libraries, next you will copy the ``.env.example`` and rename it to ``.env``.
+
+In the ``.env``, make sure to fill in the ``PORT``, ``CONNECTION``, ``DB_HOST``, and ``DB_NAME`` fields. For example, look below:
+```
+ PORT=0000
+ CONNECTION=mongodb+srv://project.1x1x1.mongodb.net/Database?retryWrites=true&w=majority
+ DB_HOST=project.1x1x1.mongodb.net/
+ DB_NAME=Database
+```
+
+Additionally, you can fill in the fields for ``Goggle Analytics``, ``Facebook Pixel`` and any other optional secrets and keys used in the project.
+
+When your project is ready to test, run the following command(s) in a terminal:
+```
+npm run start
+```
 
 ## Roadmap (Features)
 - MVP (Most Viable Product)

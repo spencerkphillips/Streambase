@@ -1,29 +1,33 @@
-import app from "./server"
-import mongodb from "mongodb"
-import dotenv from "dotenv"
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-import UserMigration from "./database/migrations/user.migration"
-import PostMigration from "./database/migrations/post.migration"
-import PageMigration from "./database/migrations/page.migration"
+dotenv.config();
 
-dotenv.config()
+import userRoutes from './routes/user.routes.js';
+import postRoutes from './routes/post.routes.js';
+import pageRoutes from './routes/page.routes.js';
+import dashboardRoutes from './routes/dashboard.routes.js';
 
-const MongoClient = mongodb.MongoClient
+const app = express();
 
-const port = process.env.APP_PORT || 5001
+app.use(express.json({ extended: true, limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-MongoClient.connect(
-    process.env.MONGO_URI,
-    {
-        poolSize: 50,
-        wtimeout: 250,
-        useNewUrlParser: true
-    }
-).catch (err => {
-    console.error(err.stack)
-    process.exit(1)
-}).then(async clint => {
-    app.listen(port, () => {
-        console.log(`Listening on ${port}`)
-    })
-})
+app.use(cors());
+
+app.use('/posts', postRoutes);
+app.use('/users', userRoutes);
+app.use('/pages', pageRoutes);
+app.use('/admin', dashboardRoutes);
+
+const mongoURI = process.env.MONGO_URI;
+const host = process.env.APP_HOST;
+const port = process.env.APP_PORRT || 5000;
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => app.listen(port, () => console.log(`Server running on port: http://${host}:${port}`)))
+    .catch((error) => console.error(`${error} did not connect`));
+
+mongoose.set('useFindAndModify', false);

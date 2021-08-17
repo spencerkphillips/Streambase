@@ -20,7 +20,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 app.use('/pages', pageRoutes);
-app.use('/admin', dashboardRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 const mongoURI = process.env.MONGO_URI;
 const host = process.env.APP_HOST;

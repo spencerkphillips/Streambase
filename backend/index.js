@@ -8,7 +8,6 @@ dotenv.config();
 import userRoutes from './routes/user.routes.js';
 import postRoutes from './routes/post.routes.js';
 import pageRoutes from './routes/page.routes.js';
-import dashboardRoutes from './routes/dashboard.routes.js';
 
 const app = express();
 
@@ -20,11 +19,10 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 app.use('/pages', pageRoutes);
-app.use('/dashboard', dashboardRoutes);
 
 const mongoURI = process.env.MONGO_URI;
 const host = process.env.APP_HOST;
-const port = process.env.APP_PORRT || 5000;
+const port = process.env.APP_PORT || 5001;
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(port, () => console.log(`Server running on port: http://${host}:${port}`)))
